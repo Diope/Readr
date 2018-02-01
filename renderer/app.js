@@ -13,10 +13,22 @@ $('.close-add-modal').click(() => {
 $('#add-button').click(() => {
   let newItemURL = $('#item-input').val();
   if (newItemURL) {
-    ipcRenderer.send('new-item', newItemURL)
+    $('#item-input').prop('disabled', true);
+    $('#add-button').addClass('is-loading');
+    $('.close-add-modal').addClass('is-disabled');
+
+    ipcRenderer.send('new-item', newItemURL);
   }
 })
 
 $('#item-input').keyup((e) => {
   if (e.key === 'Enter') $('#add-button').click();
+})
+
+ipcRenderer.on('new-item-success', (e, item) => {
+  console.log(item);
+  $('#add-modal').removeClass('is-active');
+  $('#item-input').prop('disabled', false).val('');
+  $('#add-button').removeClass('is-loading');
+  $('.close-add-modal').removeClass('is-disabled');
 })
