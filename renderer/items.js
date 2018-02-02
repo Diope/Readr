@@ -5,6 +5,11 @@ exports.saveItems = () => {
   localStorage.setItem('toReadItems', JSON.stringify(this.toReadItems))
 }
 
+exports.selectItem = (e) => {
+  $('.read-item').removeClass('is-active');
+  $(e.currentTarget).addClass('is-active');
+}
+
 exports.addItem = (item) => {
   // Hide no items
   $('#no-items').hide();
@@ -17,5 +22,7 @@ exports.addItem = (item) => {
                   </a>`
 
 //append
-$('#read-list').append(itemHTML);
+  $('#read-list').append(itemHTML);
+
+  $('.read-item').off('click').on('click', this.selectItem)
 }

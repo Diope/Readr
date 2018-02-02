@@ -1,6 +1,18 @@
 const {ipcRenderer} = require('electron');
 const items = require('./items');
 
+// Navigate with up/down arrow
+$(document).keydown((e) => {
+  switch (e.key) {
+    case 'ArrowUp':
+      console.log('Prev item');
+      break;
+    case 'ArrowDown':
+      console.log('Next item');
+      break;
+  }
+})
+
 // Show the add modal
 $('.open-add-modal').click(() => {
   $('#add-modal').addClass('is-active');
@@ -54,5 +66,7 @@ $('#search').keyup((e) => {
 })
 
 // Add items when app loads
-if(items.toReadItems.length)
-  items.toReadItems.forEach(items.addItem)
+if(items.toReadItems.length) {
+  items.toReadItems.forEach(items.addItem);
+  $('.read-item:first()').addClass('is-active');
+}

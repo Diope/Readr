@@ -17,3 +17,10 @@
   z-index: 100;
 }
 
+.read-item {
+  border-left-width: 10px;
+}
+
+.read-item.is-active {
+  background-color: #fafafa
+}
