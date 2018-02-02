@@ -44,6 +44,15 @@ ipcRenderer.on('new-item-success', (e, item) => {
   $('.close-add-modal').removeClass('is-disabled');
 })
 
+// Filter items by title
+
+$('#search').keyup((e) => {
+  let filter = $(e.currentTarget).val()
+  $('.read-item').each((i, el) => {
+    $(el).text().toLowerCase().includes(filter) ? $(el).show() : $(el).hide();
+  })
+})
+
 // Add items when app loads
 if(items.toReadItems.length)
   items.toReadItems.forEach(items.addItem)
