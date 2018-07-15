@@ -10,6 +10,18 @@ exports.selectItem = (e) => {
   $(e.currentTarget).addClass('is-active');
 }
 
+exports.changeItem = (direction) => {
+  let activeItem = $('read-item.is-active');
+
+  let newItem = (direction === 'down') ? activeItem.next('.read-item') : activeItem.prev('.read-item')
+
+  if (newItem.length) {
+    activeItem.removeClass('is-active');
+    newItem.addClass('is-active');
+  }
+}
+
+
 exports.addItem = (item) => {
   // Hide no items
   $('#no-items').hide();

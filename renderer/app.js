@@ -5,10 +5,10 @@ const items = require('./items');
 $(document).keydown((e) => {
   switch (e.key) {
     case 'ArrowUp':
-      console.log('Prev item');
+      items.changeItem('up');
       break;
     case 'ArrowDown':
-      console.log('Next item');
+      items.changeItem('down');
       break;
   }
 })
