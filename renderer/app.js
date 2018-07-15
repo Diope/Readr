@@ -5,10 +5,10 @@ const items = require('./items');
 $(document).keydown((e) => {
   switch (e.key) {
     case 'ArrowUp':
-      console.log('Prev item');
+      items.changeItem('up')
       break;
     case 'ArrowDown':
-      console.log('Next item');
+      items.changeItem('down');
       break;
   }
 })
@@ -54,6 +54,10 @@ ipcRenderer.on('new-item-success', (e, item) => {
   $('#item-input').prop('disabled', false).val('');
   $('#add-button').removeClass('is-loading');
   $('.close-add-modal').removeClass('is-disabled');
+
+  if(items.toreadItems.length === 1) {
+    $('.read-item:first()').addClass('is-active')
+  }
 })
 
 // Filter items by title
