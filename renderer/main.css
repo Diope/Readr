@@ -19,8 +19,15 @@
 
 .read-item {
   border-left-width: 10px;
+  -webkit-user-select: none;
 }
 
 .read-item.is-active {
   background-color: #fafafa
+}
+
+#loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
