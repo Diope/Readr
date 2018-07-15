@@ -26,7 +26,7 @@ exports.addItem = (item) => {
   // Hide no items
   $('#no-items').hide();
 
-  let itemHTML = `<a class="panel-block read-item">
+  let itemHTML = `<a class="panel-block read-item" data-url="${item.url}">
                     <figure class="image has-shadow is-64x64 thumb">
                       <img src="${item.screenshot}">
                     </figure>
@@ -36,5 +36,35 @@ exports.addItem = (item) => {
 //append
   $('#read-list').append(itemHTML);
 
-  $('.read-item').off('click').on('click', this.selectItem)
+  $('.read-item')
+    .off('click, dblclick')
+    .on('click', this.selectItem)
+    .on('dblclick', this.openItem)
+}
+
+exports.changeItem = (direction) => {
+  let activeItem = $('.read-item.is-active')
+
+  // Need check direction and get the next or prev item
+  let newItem = (direction === 'down') ? activeItem.next('.read-item') : activeItem.prev('.read-item')
+
+  if (newItem.length) {
+    activeItem.removeClass('is-active')
+    newItem.addClass('is-active')
+  }
+}
+
+// Stack Overflow, you save lives T___T
+exports.openItem = () => {
+
+  if (!this.toReadItems.length) return
+
+  // Get the selected item
+  let targetItem = $('.read-item.is-active')
+
+  let contentURL = targetItem.data('url')
+
+  console.log('Opening ze itemz!');
+  console.log(contentURL);
+
 }
