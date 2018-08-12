@@ -22,6 +22,7 @@ exports.changeItem = (direction) => {
 }
 
 
+
 exports.addItem = (item) => {
   // Hide no items
   $('#no-items').hide();
@@ -54,17 +55,39 @@ exports.changeItem = (direction) => {
   }
 }
 
+window.deleteItem = (i) => {
+  // TODO remove item
+  $('.read-item').eq(i).remove();
+
+  this.toReadItems = this.toReadItems.filter((item, index) => {
+    return index !== i
+  });
+
+  this.saveItems()
+
+  if (this.toReadItems.length) {
+    // check if the 0 array item was deleted, select new first tiem, else prev
+    let newIndex = (i === 0) ? 0 : i - 1;
+
+    //assign active to new index
+    $('.read-item').eq(newIndex).addClass('is-active');
+    
+    // else restore the no items message
+  } else {
+    $('#no-items').show();
+  }
+}
+
 // Stack Overflow, you save lives T___T
 exports.openItem = () => {
 
   if (!this.toReadItems.length) return
 
   // Get the selected item
-  let targetItem = $('.read-item.is-active')
-
-  let contentURL = encodeURIComponent(targetItem.data('url'))
-
-  let readerWinURL = `file://${__dirname}/reader.html?url=${contentURL}`
+  let targetItem = $('.read-item.is-active');
+  let contentURL = encodeURIComponent(targetItem.data('url'));
+  let itemIndex = targetItem.index() - 1;
+  let readerWinURL = `file://${__dirname}/reader.html?url=${contentURL}&itemIndex=${itemIndex}`;
 
   // Open item in a proxy BrowserWin
   let readerWin = window.open(readerWinURL, targetItem.data('title'))

@@ -1,6 +1,6 @@
 
 // Modules
-const {BrowserWindow} = require('electron')
+const {app, BrowserWindow} = require('electron');
 
 // BrowserWindow instance
 exports.win
@@ -21,6 +21,7 @@ exports.createWindow = () => {
   this.win.loadURL(`file://${__dirname}/renderer/main.html`)
 
   this.win.on('closed', () => {
-    this.win = null
+    app.quit();
+    this.win = null;
   })
 }

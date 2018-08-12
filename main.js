@@ -1,7 +1,7 @@
 
 // Modules
-const {app, ipcMain} = require('electron')
-const mainWindow = require('./mainWindow')
+const {app, ipcMain} = require('electron');
+const mainWindow = require('./mainWindow');
 const readItem = require('./readItem');
 
 // Enable Electron-Reload
@@ -12,13 +12,14 @@ ipcMain.on('new-item', (e, itemURL) => {
   readItem(itemURL, (item) => {
     console.log(item);
     e.sender.send('new-item-success', item)
-  })
+  });
+  readItem.close();
 })
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', mainWindow.createWindow)
+app.on('ready', mainWindow.createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
